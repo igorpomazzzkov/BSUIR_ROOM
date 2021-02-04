@@ -1,0 +1,22 @@
+<div class="wrapper" fxFlex="100%" fxLayout="row" fxLayout.lt-md="column"  fxLayoutAlign="center center">
+  <form [formGroup]="loginForm" (submit)="login()" fxFlex.sm="50" fxFlex.md="50" fxFlex.gt-md="50" fxLayout="column">
+    <div class="error-block" fxLayoutAlign="center center" fxFlex="100">
+      <mat-error *ngIf="loginError">{{ getMessageError() }}</mat-error>
+    </div>
+    <mat-form-field appearance="fill">
+      <mat-label>Выберите пользователя</mat-label>
+      <mat-select formControlName="username">
+        <mat-option *ngFor="let username of usernames" value="{{username}}">{{username}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>пароль</mat-label>
+      <input (change)="loginError = false" matInput formControlName="password" type="password">
+      <mat-error *ngIf="loginForm.controls.password.hasError('required')">
+        Введите пароль
+      </mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="accent" type="submit">Войти</button>
+  </form>
+</div>
+

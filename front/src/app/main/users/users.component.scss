@@ -1,0 +1,38 @@
+mat-form-field{
+  width: 100%;
+}
+
+div, table{
+  width: 100%;
+}
+
+table{
+  margin-bottom: 50px!important;
+}
+
+.link{
+  position: fixed;
+  display: flex;
+  align-items: center;
+  float: left;
+  bottom: 0;
+  margin-left: -24px;
+  -webkit-box-shadow: 0px -4px 13px -7px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px -4px 13px -7px rgba(0,0,0,0.75);
+  box-shadow: 0px -4px 13px -7px rgba(0,0,0,0.75);
+}
+
+.link > button {
+  position: absolute;
+  width: 100px;
+  color: white;
+  margin-left: 3%;
+}
+
+mat-paginator{
+  width: 100%;
+}
+
+::ng-deep .mat-paginator-range-actions {
+  margin-right: 3%!important;
+}

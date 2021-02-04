@@ -1,0 +1,23 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav fxLayout="row" mat-disable-backdrop #sidenav autoFocus="false" [(opened)]="isShowing" mode="over" class="sidenav">
+    <mat-nav-list *ngIf="authenticated()">
+      <h2 matSubheader> {{ 'Помещения' }} </h2>
+      <a mat-list-item (click)="closeSidenav()" routerLink="/add-room">Новое помещение</a>
+      <a mat-list-item (click)="closeSidenav()" routerLink="/rooms">Найти помещение</a>
+    </mat-nav-list>
+    <mat-nav-list *ngIf="authenticated()">
+      <h2 matSubheader> {{ 'Администрирование' }} </h2>
+      <a mat-list-item (click)="closeSidenav()" routerLink="/users">Пользователи</a>
+      <a mat-list-item (click)="closeSidenav()" routerLink="/add-user">Добавить пользователя</a>
+    </mat-nav-list>
+    <mat-nav-list>
+      <a mat-list-item *ngIf="authenticated()" (click)="closeSidenav()" routerLink="/login">Выход</a>
+      <a mat-list-item *ngIf="!authenticated()" (click)="logout()" routerLink="/login">Авторизация</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

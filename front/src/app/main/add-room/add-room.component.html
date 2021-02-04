@@ -1,0 +1,143 @@
+<div class="wrapper">
+  <form [formGroup]="roomForm" (ngSubmit)="addRoom()">
+    <div class="main-form" fxLayout="column" fxLayoutAlign="space-around">
+      <mat-error>*Поля обязательные для заполнения</mat-error>
+
+      <div class="corpus-num" fxLayoutAlign="space-around">
+        <mat-form-field appearance="fill">
+          <mat-label>Корпус</mat-label>
+          <mat-select formControlName="corpus">
+            <mat-option *ngFor="let item of [0, 1, 2, 3, 4, 5, 6, 7, 8]" value="{{item}}">{{item}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field hintLabel="Максимальное число знаков 4" appearance="fill">
+          <mat-label>Номер комнаты</mat-label>
+          <input type="number" matInput #num maxlength="4" formControlName="num">
+          <mat-hint align="end">{{num.value?.length || 0}}/4</mat-hint>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Тип помещения</mat-label>
+        <mat-select formControlName="type">
+          <mat-option *ngFor="let item of types" value="{{item.name}}">{{item.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="department-num" fxLayoutAlign="space-around">
+        <mat-form-field appearance="fill">
+          <mat-label>Головное структурное подразделение</mat-label>
+          <mat-select (selectionChange)="changeSubdepartment()" formControlName="department">
+            <mat-option *ngFor="let item of departments" value="{{item.name}}">{{item.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Структурное подразделение</mat-label>
+          <mat-select formControlName="subdepartment">
+            <mat-option *ngFor="let item of subdep" value="{{item.name}}">{{item.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field hintLabel="Максимальное число знаков 4" appearance="fill">
+        <mat-label>Площадь м.кв.</mat-label>
+        <input type="number" matInput #squar maxlength="4" formControlName="squar">
+        <mat-hint align="end">{{squar.value?.length || 0}}/4</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field hintLabel="Максимальное число знаков 50" appearance="fill">
+        <mat-label>Ответственное лицо</mat-label>
+        <input matInput #owner maxlength="50" formControlName="owner">
+        <mat-hint align="end">{{owner.value?.length || 0}}/50</mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="additional-form" fxLayout="column" fxLayoutAlign="space-around">
+      <p class="additional-p">Дополнительна информация о помещении</p>
+
+      <div class="additional-worker-block">
+        <mat-form-field appearance="fill">
+          <mat-label>Количество рабочих мест</mat-label>
+          <input type="number" matInput #input formControlName="countOfWorker">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Количество работников</mat-label>
+          <input type="number" matInput #input formControlName="sitCount">
+        </mat-form-field>
+      </div>
+
+        <mat-checkbox (ngModel)="isEquepment" formControlName="equipment" (change)="isEq()">
+          Оснащение
+        </mat-checkbox>
+
+        <div *ngIf="getEqupment()" class="additional-equpment-block">
+          <mat-form-field appearance="fill">
+            <mat-label>Наименование оснащения</mat-label>
+            <input matInput #input formControlName="equipmentName">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Описание оснащения</mat-label>
+            <textarea matInput placeholder="Компьютерный сервер, паяльник ..."></textarea>
+          </mat-form-field>
+        </div>
+
+        <div class="additional-equpment-block">
+          <mat-form-field appearance="fill">
+            <mat-label>Количество ПК</mat-label>
+            <input type="number" matInput #input formControlName="pcCount">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Количество принтеров</mat-label>
+            <input type="number" matInput #input formControlName="printCount">
+          </mat-form-field>
+        </div>
+
+        <mat-checkbox (ngModel)="isPhone" (change)="isPh()">
+          Наличие телефона
+        </mat-checkbox>
+
+        <mat-form-field *ngIf="getPhone()" appearance="fill">
+          <mat-label>Телефон</mat-label>
+          <input type="number" matInput #input placeholder="+375445778899" formControlName="telephone">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Дата ремонта</mat-label>
+          <input matInput formControlName="repair" [matDatepicker]="picker">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <div>
+          <mat-checkbox (ngModel)="isPlumbing" formControlName="plumbing" (change)="isPlumb()">
+            Наличие водопровода
+          </mat-checkbox>
+
+          <mat-checkbox (ngModel)="isSignal" formControlName="signalSystem" (change)="isSig()">
+            Наличие сигнализационной системы
+          </mat-checkbox>
+        </div>
+
+        <div>
+          <mat-checkbox (ngModel)="isEthernet" formControlName="isEthernet" (change)="isEther()">
+            Наличие Ethernet
+          </mat-checkbox>
+
+          <mat-checkbox (ngModel)="isSocket220" formControlName="socket220" (change)="isSock220()">
+            Наличие розеток 220
+          </mat-checkbox>
+
+          <mat-checkbox (ngModel)="isSocket360" formControlName="socket360" (change)="isSock360()">
+            Наличие розеток 360
+          </mat-checkbox>
+        </div>
+        <div class="form-button" fxLayoutAlign="end">
+          <button type="submit" mat-raised-button color="accent">Добавить новое помещение</button>
+        </div>
+    </div>
+  </form>
+</div>

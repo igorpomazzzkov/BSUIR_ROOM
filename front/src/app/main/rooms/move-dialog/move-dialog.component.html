@@ -1,0 +1,45 @@
+<div fxFlex="row">
+  <h1 mat-dialog-title>Перемещение помещения</h1>
+  <div class="info-block" mat-dialog-content>
+    <p>
+      <span class="title">Корпус:</span>
+      <span class="info">{{this.room.corpus}}</span>
+    </p>
+    <p>
+      <span class="title">Головное структурное подразделение:</span>
+      <span class="info">{{this.room.subdepartment.department.name}}</span>
+    </p>
+    <p>
+      <span class="title">Структурное подразделение:</span>
+      <span class="info">{{this.room.subdepartment.name}}</span>
+    </p>
+  </div>
+  <mat-divider></mat-divider>
+  <div mat-dialog-actions fxLayout="column">
+    <form [formGroup]="moveForm" (ngSubmit)="move()" fxFlex="100" fxLayout="column">
+      <mat-form-field appearance="fill">
+        <mat-label>Корпус</mat-label>
+        <mat-select formControlName="corpus">
+          <mat-option *ngFor="let item of [0, 1, 2, 3, 4, 5, 6, 7, 8]" value="{{item}}">{{item}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Головное структурное подразделение</mat-label>
+          <mat-select (selectionChange)="changeSubdepartment()" formControlName="department">
+            <mat-option *ngFor="let item of departments" value="{{item.name}}">{{item.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Структурное подразделение</mat-label>
+          <mat-select formControlName="subdepartment">
+            <mat-option *ngFor="let item of subdep" value="{{item.name}}">{{item.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div align="end" fxLayout="row">
+          <button type="button" mat-button (click)="onNoClick()">Закрыть</button>
+          <button mat-button type="submit" color="primary">Переместить</button>
+        </div>
+    </form>
+  </div>
+</div>

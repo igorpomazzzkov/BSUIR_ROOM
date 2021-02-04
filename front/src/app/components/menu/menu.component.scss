@@ -1,0 +1,41 @@
+@import '../../../styles.scss';
+
+$primary: map-get($theme, primary);
+
+mat-toolbar{
+  background-color: white!important;
+  border-bottom: 1px solid rgb(211, 211, 211);
+}
+
+.sign-in > span{
+  font-weight: 400;
+}
+
+.sign-in, .user{
+  font-weight: 400!important;
+  font-family: "Lato" ,sans-serif;
+  font-size: 16px;
+}
+
+.sign-in > a{
+  vertical-align: baseline;
+  text-decoration: underline;
+}
+
+a{
+  font-size: 16px;
+  color: #444;
+  text-decoration: none;
+  line-height: 55px;
+  letter-spacing: .2px;
+}
+
+a:hover {
+  text-decoration: none;
+  color: mat-color($primary);
+}
+
+.user{
+  width: 100%;
+  height: 100%;
+}

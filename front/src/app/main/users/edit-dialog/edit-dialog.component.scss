@@ -1,0 +1,15 @@
+.content{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.name{
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  color: rgb(148, 148, 148);
+}
+
+.image{
+  width: 100%;
+}

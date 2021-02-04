@@ -1,0 +1,57 @@
+<div fxLayoutAlign="center center" class="div">
+  <form [formGroup]="userForm" fxLayout="column" fxFlex="60" fxFlex.lt-md="80" (submit)="addUser()">
+    <mat-error>{{getMessageError()}}</mat-error>
+    <mat-form-field class="example-full-width">
+      <mat-label>Фамилия</mat-label>
+      <input matInput formControlName="lastName">
+      <mat-error *ngIf="userForm.controls.lastName.hasError('required')">
+        <strong>Введите фамилию</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Имя</mat-label>
+      <input matInput formControlName="firstName">
+      <mat-error *ngIf="userForm.controls.firstName.hasError('required')">
+        <strong>Введите имя</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Отчество</mat-label>
+      <input matInput formControlName="middleName">
+      <mat-error *ngIf="userForm.controls.middleName.hasError('required')">
+        <strong>Введите отчество</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Логин</mat-label>
+      <input matInput formControlName="username">
+      <mat-error *ngIf="userForm.controls.username.hasError('required')">
+        <strong>Введите логин</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <div fxAlign="column" fxLayoutAlign="space-between space-around">
+      <mat-form-field fxFlex="49">
+        <mat-label>Роиль пользователя</mat-label>
+        <mat-select formControlName="role" [(ngModel)]="role" matNativeControl required>
+          <mat-option *ngFor="let role of roleOption" [value]="role">{{role}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="49">
+        <mat-label>Пароль</mat-label>
+        <input matInput formControlName="password" placeholder="Задайте пароль для нового пользователя">
+        <mat-error *ngIf="userForm.controls.password.hasError('required')">
+          <strong>Введите пароль</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="button">
+      <button mat-raised-button color="primary" type="submit">Добавить пользователя</button>
+    </div>
+  </form>
+</div>

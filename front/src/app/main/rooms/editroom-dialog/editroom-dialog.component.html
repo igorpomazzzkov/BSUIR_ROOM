@@ -1,0 +1,155 @@
+<h2 mat-dialog-title>Изменение помещения</h2>
+<form [formGroup]="roomForm" (ngSubmit)="editRoom()">
+  <mat-dialog-content class="mat-typography">
+      <div class="main-form" fxLayout="column" fxLayoutAlign="space-around">
+        <mat-error>*Поля обязательные для заполнения</mat-error>
+
+        <div class="corpus-num" fxLayoutAlign="space-between">
+          <mat-form-field appearance="fill" fxFlex="48">
+            <mat-label>Корпус</mat-label>
+            <mat-select formControlName="corpus" [(ngModel)]="room.corpus">
+              <mat-option *ngFor="let item of [0, 1, 2, 3, 4, 5, 6, 7, 8]" [value]="item">{{item}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field hintLabel="Максимальное число знаков 4" fxFlex="48" appearance="fill">
+            <mat-label>Номер комнаты</mat-label>
+            <input type="number" [(ngModel)]="room.num" matInput #num maxlength="4" formControlName="num">
+            <mat-hint align="end">{{num.value?.length || 0}}/4</mat-hint>
+          </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Тип помещения</mat-label>
+          <mat-select formControlName="type" [(ngModel)]="room.type.name">
+            <mat-option *ngFor="let item of types" [value]="item.name">{{item.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div class="department-num" fxLayoutAlign="space-between">
+          <mat-form-field appearance="fill" fxFlex="48">
+            <mat-label>Головное структурное подразделение</mat-label>
+            <mat-select (selectionChange)="changeSubdepartment()" [(ngModel)]="room.subdepartment.department.name" formControlName="department">
+              <mat-option *ngFor="let item of departments" value="{{item.name}}">{{item.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" fxFlex="48">
+            <mat-label>Структурное подразделение</mat-label>
+            <mat-select formControlName="subdepartment" [(ngModel)]="room.subdepartment.name">
+              <mat-option *ngFor="let item of subdep" value="{{item.name}}">{{item.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <mat-form-field hintLabel="Максимальное число знаков 4" appearance="fill">
+          <mat-label>Площадь м.кв.</mat-label>
+          <input type="number" matInput #squar maxlength="4" formControlName="squar" [(ngModel)]="room.squar">
+          <mat-hint align="end">{{squar.value?.length || 0}}/4</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field hintLabel="Максимальное число знаков 50" appearance="fill">
+          <mat-label>Ответственное лицо</mat-label>
+          <input matInput #owner maxlength="50" formControlName="owner" [(ngModel)]="room.owner">
+          <mat-hint align="end">{{owner.value?.length || 0}}/50</mat-hint>
+        </mat-form-field>
+      </div>
+      <br>
+      <mat-divider></mat-divider>
+      <br>
+      <mat-checkbox (ngModel)="additional" (click)="changeAdditional()">
+        Дополнительная информация
+      </mat-checkbox>
+      <br>
+
+      <div *ngIf="additional" class="additional-form" fxLayout="column" fxLayoutAlign="space-around">
+
+        <div class="additional-worker-block" fxLayoutAlign="space-between">
+          <mat-form-field appearance="fill" fxFlex="48">
+            <mat-label>Количество рабочих мест</mat-label>
+            <input type="number" matInput #input formControlName="countOfWorker" [ngModel]="room.roomInfo && room.roomInfo?.countOfWorker">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" fxFlex="48">
+            <mat-label>Количество работников</mat-label>
+            <input type="number" matInput #input formControlName="sitCount"  [ngModel]="room.roomInfo && room.roomInfo?.sitCount">
+          </mat-form-field>
+        </div>
+
+          <mat-checkbox  [ngModel]="room.roomInfo && room.roomInfo?.equipment" formControlName="equipment" (change)="isEq()">
+            Оснащение
+          </mat-checkbox>
+
+          <div *ngIf="getEqupment()" class="additional-equpment-block" fxLayoutAlign="space-between">
+            <mat-form-field appearance="fill" fxFlex="48">
+              <mat-label>Наименование оснащения</mat-label>
+              <input matInput #input formControlName="equipmentName" [ngModel]="room.roomInfo && room.roomInfo?.equipmentName">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" fxFlex="48">
+              <mat-label>Описание оснащения</mat-label>
+              <textarea matInput placeholder="Компьютерный сервер, паяльник ..." [ngModel]="room.roomInfo && room.roomInfo?.equipmentDesc"></textarea>
+            </mat-form-field>
+          </div>
+
+          <div class="additional-equpment-block" fxLayoutAlign="space-between">
+            <mat-form-field appearance="fill" fxFlex="48">
+              <mat-label>Количество ПК</mat-label>
+              <input type="number" matInput #input formControlName="pcCount" [ngModel]="room.roomInfo && room.roomInfo?.pcCount">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" fxFlex="48">
+              <mat-label>Количество принтеров</mat-label>
+              <input type="number" matInput #input formControlName="printCount" [ngModel]="room.roomInfo && room.roomInfo?.printCount">
+            </mat-form-field>
+          </div>
+
+          <mat-checkbox [ngModel]="room.roomInfo && room.roomInfo.countOfWorker ? true : false" (change)="isPh()">
+            Наличие телефона
+          </mat-checkbox>
+
+          <mat-form-field *ngIf="getPhone()" appearance="fill">
+            <mat-label>Телефон</mat-label>
+            <input type="number" matInput #input placeholder="+375445778899" formControlName="telephone" [ngModel]="room.roomInfo && room.roomInfo?.telephone">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Дата ремонта</mat-label>
+            <input matInput formControlName="repair" [matDatepicker]="picker" [ngModel]="room.roomInfo && room.roomInfo?.repair">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <div fxLayoutAlign="space-between">
+            <mat-checkbox [ngModel]="room.roomInfo && room.roomInfo?.plumbing" formControlName="plumbing" (change)="isPlumb()">
+              Наличие водопровода
+            </mat-checkbox>
+
+            <mat-checkbox [ngModel]="room.roomInfo && room.roomInfo?.signalSystem"  formControlName="signalSystem" (change)="isSig()">
+              Наличие сигнализационной системы
+            </mat-checkbox>
+          </div>
+
+          <br>
+
+          <div fxLayoutAlign="space-between">
+            <mat-checkbox [ngModel]="room.roomInfo && room.roomInfo?.isEthernet" formControlName="isEthernet" (change)="isEther()">
+              Наличие Ethernet
+            </mat-checkbox>
+
+            <mat-checkbox [ngModel]="room.roomInfo && room.roomInfo?.socket220" formControlName="socket220" (change)="isSock220()">
+              Наличие розеток 220
+            </mat-checkbox>
+
+            <mat-checkbox [ngModel]="room.roomInfo && room.roomInfo?.socket360"formControlName="socket360" (change)="isSock360()">
+              Наличие розеток 360
+            </mat-checkbox>
+          </div>
+      </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button type="button" mat-stroked-button mat-dialog-close>Закрыть</button>
+    <button type="submit" mat-button color="primary">Изменить</button>
+  </mat-dialog-actions>
+</form>
+

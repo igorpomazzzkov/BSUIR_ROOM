@@ -1,0 +1,15 @@
+.info-block{
+  display: flex;
+  flex-direction: column;
+}
+
+.info-block > p {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.title{
+  font-size: 14px;
+  color: grey;
+}

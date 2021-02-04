@@ -1,0 +1,31 @@
+<h1 mat-dialog-title>Подтвердите удаление</h1>
+<div mat-dialog-content class="info-block" >
+  <p>
+    <span class="title">Корпус:</span>
+    <span class="info">{{this.room.corpus}}</span>
+  </p>
+  <p>
+    <span class="title">Головное структурное подразделение:</span>
+    <span class="info">{{this.room.subdepartment.department.name}}</span>
+  </p>
+  <p>
+    <span class="title">Структурное подразделение:</span>
+    <span class="info">{{this.room.subdepartment.name}}</span>
+  </p>
+  <p>
+    <span class="title">Номер комнаты:</span>
+    <span class="info">{{this.room.num}}</span>
+  </p>
+  <p>
+    <span class="title">Площадь:</span>
+    <span class="info">{{this.room.squar}}</span>
+  </p>
+  <p>
+    <span class="title">Ответственное лицо:</span>
+    <span class="info">{{this.room.owner}}</span>
+  </p>
+</div>
+<div mat-dialog-actions>
+  <button mat-stroked-button (click)="onNoClick()">Закрыть</button>
+  <button mat-button color="warn" (click)="deleteRoom()">Удалить</button>
+</div>

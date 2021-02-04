@@ -1,0 +1,246 @@
+<div class="mat-elevation-z8"#TABLE>
+  <div class="filter-block">
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>view_comfy</mat-icon>
+        </mat-panel-title>
+        <mat-panel-description>
+          Настроить отображение таблицы
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="filter-block-form">
+        <div class="filter-block-form1">
+          <mat-checkbox ngModel="true" (change)="isCheck('num', $event)">Номер комнаты</mat-checkbox>
+          <mat-checkbox ngModel="true" (change)="isCheck('corpus', $event)">Номер корпуса</mat-checkbox>
+          <mat-checkbox ngModel="true" (change)="isCheck('subdepartment.name', $event)">Структурное подразделение</mat-checkbox>
+          <mat-checkbox ngModel="true" (change)="isCheck('subdepartment.item', $event)">Номер структурного подразделения</mat-checkbox>
+          <mat-checkbox ngModel="true" (change)="isCheck('type.name', $event)">Тип помещения</mat-checkbox>
+        </div>
+        <div class="filter-block-form2">
+          <mat-checkbox ngModel="true" (change)="isCheck('squar', $event)">Площадь</mat-checkbox>
+          <mat-checkbox ngModel="true" (change)="isCheck('owner', $event)">Ответственное лицо</mat-checkbox>
+          <mat-checkbox (ngModel)="false" (change)="isCheck('roomInfo.countOfWorker', $event)">Количество работников</mat-checkbox>
+          <mat-checkbox (ngModel)="false" (change)="isCheck('roomInfo.sitCount', $event)">Количество рабочих мест</mat-checkbox>
+          <mat-checkbox (ngModel)="false" (change)="isCheck('roomInfo.telephone', $event)">Телефон</mat-checkbox>
+        </div>
+        <div class="filter-block-form3">
+          <mat-checkbox (ngModel)="false" (change)="isCheck('roomInfo.equipment', $event)">Оснащение</mat-checkbox>
+          <mat-checkbox (ngModel)="false" (change)="isCheck('roomInfo.equipmentDesc', $event)">Наименование оснащения</mat-checkbox>
+          <mat-checkbox (ngModel)="false" (change)="isCheck('roomInfo.equipmentName', $event)">Описание оснащения</mat-checkbox>
+          <mat-checkbox (ngModel)="false" (change)="isCheck('roomInfo.pcCount', $event)">Количество ПК</mat-checkbox>
+          <mat-checkbox (ngModel)="false" (change)="isCheck('roomInfo.printCount', $event)">Количество принтеров</mat-checkbox>
+        </div>
+
+        <div class="filter-block-form4">
+          <mat-checkbox (ngModel)="false" (change)="isCheck('roomInfo.repair', $event)">Дата ремонта</mat-checkbox>
+          <mat-checkbox (ngModel)="false" (change)="isCheck('roomInfo.plumbing', $event)">Водопровод</mat-checkbox>
+          <mat-checkbox (ngModel)="false" (change)="isCheck('roomInfo.signalSystem', $event)">Сигнализация</mat-checkbox>
+
+        </div>
+
+        <div class="filter-block-form5">
+          <mat-checkbox (ngModel)="false" (change)="isCheck('roomInfo.isEthernet', $event)">Ethernet</mat-checkbox>
+          <mat-checkbox (ngModel)="false" (change)="isCheck('roomInfo.socket220', $event)">Розетки 220</mat-checkbox>
+          <mat-checkbox (ngModel)="false" (change)="isCheck('roomInfo.socket360', $event)">Розетки 360</mat-checkbox>
+
+        </div>
+        </div>
+    </mat-expansion-panel>
+  </div>
+  <br>
+  <table #table id="exportable" mat-table matSort [dataSource]="dataSource" multiTemplateDataRows>
+
+    <ng-container matColumnDef="corpus">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Корпус </th>
+      <td mat-cell *matCellDef="let element"> {{element.corpus}} </td>
+      <td mat-footer-cell *matFooterCellDef> Total </td>
+    </ng-container>
+
+    <ng-container matColumnDef="num">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Номер комнаты </th>
+      <td mat-cell *matCellDef="let element"> {{element.num}} </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="subdepartment.department.name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Название головного структурного подразделения </th>
+      <td mat-cell *matCellDef="let element"> {{element.subdepartment.department.name}} </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="subdepartment.name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Структурное подразделение </th>
+      <td mat-cell *matCellDef="let element"> {{element.subdepartment.name}} </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="subdepartment.item">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Номер сутрктурного подразделения</th>
+      <td mat-cell *matCellDef="let element"> {{element.subdepartment.item || 'пусто'}} </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="type.name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Тип помещения</th>
+      <td mat-cell *matCellDef="let element"> {{element.type.name}} </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="squar">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Площадь </th>
+      <td mat-cell *matCellDef="let element"> {{element.squar}} </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="owner">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Ответственное лицо </th>
+      <td mat-cell *matCellDef="let element"> {{element.owner}} </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="roomInfo.countOfWorker">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Количество работников</th>
+      <td mat-cell *matCellDef="let element">
+         {{ element.roomInfo ? element.roomInfo.countOfWorker ? element.roomInfo.countOfWorker: '-' : '-' }}
+      </td>
+      <td mat-footer-cell *matFooterCellDef>{{ getCountByNum("countOfWorker") }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="roomInfo.sitCount">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Количество мест</th>
+      <td mat-cell *matCellDef="let element">
+        {{element.roomInfo ? element.roomInfo.sitCount ? element.roomInfo.sitCount: '-' : '-' }}
+      </td>
+      <td mat-footer-cell *matFooterCellDef>{{ getCountByNum("sitCount")  }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="roomInfo.pcCount">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Количество ПК</th>
+      <td mat-cell *matCellDef="let element">
+        {{element.roomInfo ? element.roomInfo.pcCount ? element.roomInfo.pcCount: '-' : '-' }}
+      </td>
+      <td mat-footer-cell *matFooterCellDef>{{ getCountByNum("pcCount") }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="roomInfo.printCount">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Количество принтеров</th>
+      <td mat-cell *matCellDef="let element">
+        {{element.roomInfo ? element.roomInfo.printCount ? element.roomInfo.printCount: '-' : '-' }}
+      </td>
+      <td mat-footer-cell *matFooterCellDef>{{ getCountByNum("printCount") }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="roomInfo.plumbing">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Водопровод</th>
+      <td mat-cell *matCellDef="let element">
+        {{element.roomInfo ? element.roomInfo.plumbing ? element.roomInfo.plumbing: '-' : '-' }}
+      </td>
+      <td mat-footer-cell *matFooterCellDef>{{ getCountByBool("plumbing") }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="roomInfo.isEthernet">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Ethernet</th>
+      <td mat-cell *matCellDef="let element"> {{ element.roomInfo ? element.roomInfo.isEthernet ? 'есть': '-' : '-' }} </td>
+      <td mat-footer-cell *matFooterCellDef>{{ getCountByBool("isEthernet") }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="roomInfo.socket220">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Розетки 220</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.roomInfo ? element.roomInfo.socket220 ? 'есть': '-' : '-' }}
+      </td>
+      <td mat-footer-cell *matFooterCellDef>{{ getCountByBool("socket220") }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="roomInfo.socket360">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Розетки 360</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.roomInfo ? element.roomInfo.socket360 ? 'есть': '-' : '-' }}
+      </td>
+      <td mat-footer-cell *matFooterCellDef>{{ getCountByBool("socket360") }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="roomInfo.telephone">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Телефон</th>
+      <td mat-cell *matCellDef="let element">
+        {{element.roomInfo ? element.roomInfo.telephone ? element.roomInfo.telephone: '-' : '-' }}
+      </td>
+      <td mat-footer-cell *matFooterCellDef>{{ getCountByString("telephone") }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="roomInfo.signalSystem">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Сигнализация</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.roomInfo ? element.roomInfo.signalSystem ? 'есть': '-' : '-' }}
+      </td>
+      <td mat-footer-cell *matFooterCellDef>{{ getCountByBool("signalSystem") }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="roomInfo.equipment">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Окружение</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.roomInfo ? element.roomInfo.equipment ? 'есть': '-' : '-' }}
+      </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="roomInfo.equipmentName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Наименование окружения</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.roomInfo ? element.roomInfo.equipmentName ? element.roomInfo.equipmentName: '-' : '-' }}
+      </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="roomInfo.equipmentDesc">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Описание окружения</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.roomInfo ? element.roomInfo.equipmentDesc ? element.roomInfo.equipmentDesc: '-' : '-' }}
+      </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="roomInfo.repair">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Дата ремонта</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.roomInfo ? element.roomInfo.repair ? (element.roomInfo.repair | date: 'shortDate') : '-' : '-' }}
+      </td>
+      <td mat-footer-cell *matFooterCellDef>{{ getCountByString("repair") }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let element" [class.selected]="element.selected" [attr.colspan]="displayedColumns.length">
+        <div class="example-element-detail"
+             [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+          <div class="example-element-diagram">
+            <button mat-button color="primary" (click)="editRoom(element)" >Изменить</button>
+            <button mat-button color="primary" (click)="moveRoom(element)" >Переместить в структурное подразделение</button>
+            <button mat-button color="warn" (click)="deleteRoom(element)">Удалить</button>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let element; columns: displayedColumns;"
+        class="example-element-row"
+        [class.example-expanded-row]="expandedElement === element"
+        (click)="expandedElement = expandedElement === element ? null : element">
+    </tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+    <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+  </table>
+  <div class="link">
+    <div class="link-button" fxLayout="row" fxLayoutAlign="space-between center">
+      <button routerLink="/add-room" mat-raised-button color="accent">Добавить</button>
+      <button class="filter-button" mat-mini-fab color="primary" (click)="openFilter()">
+        <mat-icon>filter_alt</mat-icon>
+      </button>
+      <button (click)="exportToExcel()" mat-raised-button color="warn">Excel</button>
+    </div>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>
+
+

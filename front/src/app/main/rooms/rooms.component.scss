@@ -1,0 +1,117 @@
+mat-form-field{
+  width: 100%;
+}
+
+div, table{
+  width: 100%;
+}
+
+table{
+  margin-bottom: 50px!important;
+}
+
+.link{
+  position: fixed;
+  display: flex;
+  align-items: center;
+  float: left;
+  bottom: 0;
+  margin-left: -24px;
+  -webkit-box-shadow: 0px -4px 13px -7px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px -4px 13px -7px rgba(0,0,0,0.75);
+  box-shadow: 0px -4px 13px -7px rgba(0,0,0,0.75);
+}
+
+.link > div {
+  position: absolute;
+  width: 50%;
+  color: white;
+  margin-left: 3%;
+}
+
+mat-paginator{
+  width: 100%;
+}
+
+::ng-deep .mat-paginator-range-actions {
+  margin-right: 3%!important;
+}
+
+td, th{
+  text-align: center;
+}
+
+.filter-block-form{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.filter-block-form {
+  display: flex;
+  justify-content: space-around;
+  margin-right: 20px;
+}
+
+.filter-block-form > div{
+  display: flex;
+  flex-direction: column;
+}
+
+tr.example-detail-row {
+  height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.example-element-diagram {
+  display: flex;
+  justify-content: start;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: auto;
+}
+
+.example-element-diagram > button {
+  margin-right: 10px;
+}
+
+.example-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.example-element-description {
+  padding: 16px;
+}
+
+.example-element-description-attribution {
+  opacity: 0.5;
+}
+
+tr.mat-footer-row {
+  font-weight: bold;
+}
+
+.example-expanded-row{
+  background-color: #e7e7e7;
+}

@@ -1,0 +1,68 @@
+form{
+  display: flex;
+  flex-direction: row!important;
+  height: 100vh;
+}
+
+form > div{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: 100%;
+}
+
+form > div > mat-form-field{
+  margin-right: 10px;
+}
+
+button {
+  width: 250px;
+  float: right;
+}
+
+form > div:first-child{
+  border-right: 2px solid rgb(150, 149, 149);
+}
+
+.main-form{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.corpus-num, .department-num {
+  margin: 0;
+}
+
+.corpus-num > mat-form-field,
+.department-num > mat-form-field{
+  width: 48%;
+}
+
+.corpus-num > mat-form-field:last-child,
+.department-num > mat-form-field:last-child{
+  margin-right: 10px;
+}
+
+.additional-p{
+  color: grey;
+  font-size: 14px;
+}
+
+.additional-form{
+  padding: 10px;
+}
+
+.additional-form > div{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.additional-worker-block > mat-form-field{
+  width: 48%;
+}
+
+.additional-equpment-block > mat-form-field{
+  width: 48%;
+}
